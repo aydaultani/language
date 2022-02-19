@@ -15,3 +15,14 @@ pub fn read_file() -> Result<Vec<String> , io::Error> {
     }
     return Ok(fi) //give it back
 }
+
+// check if operator
+pub fn is_operator(token : &String) -> bool {
+    let operators = ["+" , "-" , "/" , "*" , "=" , "(" , ")" , ","]; // operators
+    return operators.iter().any(|e|e == token); // this will never get sent but okay
+}
+
+// check if digit
+pub fn is_digit(token : &String) -> bool {
+    return token.parse::<f64>().is_ok(); // can't really use .is_numeric() since its a 'String'
+}

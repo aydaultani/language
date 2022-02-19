@@ -51,6 +51,8 @@ pub fn lex(input: &str) -> Vec<String> {
         // parse id's
         if starters.contains(&item) {
             let t_type = "id";
+
+            #[allow(unused_assignments)]
             let mut o_type = "";
             let c_type = match item {
                 'v' => 'v',
