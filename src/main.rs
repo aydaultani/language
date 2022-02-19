@@ -1,6 +1,7 @@
 mod lexer;
 mod utilties;
 mod parser;
+mod err;
 
 fn main() {
     let lexer = utilties::read_file(); // read the file

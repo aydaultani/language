@@ -1,6 +1,6 @@
 use std::process::exit;
-
 use crate::utilties::{is_operator, is_digit};
+use crate::err::{ast_error , lhs_error , rhs_error};
 pub enum Op {
     PLUS,
     MINUS,
@@ -27,14 +27,14 @@ impl AST {
                 let lhs_parsed = match lhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing LHS");
+                        lhs_error();
                         exit(1);
                     }
                 };
                 let rhs_parsed = match rhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing RHS");
+                        rhs_error();
                         exit(1)
                     }
                 };
@@ -46,14 +46,14 @@ impl AST {
                 let lhs_parsed = match lhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing LHS");
+                        lhs_error();
                         exit(1);
                     }
                 };
                 let rhs_parsed = match rhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing RHS");
+                        rhs_error();
                         exit(1)
                     }
                 };
@@ -65,14 +65,14 @@ impl AST {
                 let lhs_parsed = match lhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing LHS");
+                        lhs_error();
                         exit(1);
                     }
                 };
                 let rhs_parsed = match rhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing RHS");
+                        rhs_error();
                         exit(1)
                     }
                 };
@@ -83,21 +83,21 @@ impl AST {
                 let lhs_parsed = match lhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing LHS");
+                        lhs_error();
                         exit(1);
                     }
                 };
                 let rhs_parsed = match rhs.parse::<i32>() {
                     Ok(n) => n,
                     Err(_) => {
-                        println!("Error parsing RHS");
+                        rhs_error();
                         exit(1)
                     }
                 };
                 let ans = lhs_parsed / rhs_parsed;
                 println!("{}" , ans);
             }
-            _  => println!("AST Err")
+            _  => ast_error()
         }
     }
 }
@@ -115,7 +115,7 @@ pub fn parse(tokens : Vec<String>) {
                     let rhs_parsed = match rhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with RHS, I'm sure you did");
+                            rhs_error();
                             exit(1)
                         }
                     };
@@ -123,7 +123,7 @@ pub fn parse(tokens : Vec<String>) {
                     let lhs_parsed = match lhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with LHS, I'm sure you did");
+                            lhs_error();
                             exit(1)
                         }
                     };
@@ -136,7 +136,7 @@ pub fn parse(tokens : Vec<String>) {
                     let rhs_parsed = match rhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with RHS, I'm sure you did");
+                            rhs_error();
                             exit(1)
                         }
                     };
@@ -144,7 +144,7 @@ pub fn parse(tokens : Vec<String>) {
                     let lhs_parsed = match lhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with LHS, I'm sure you did");
+                            lhs_error();
                             exit(1)
                         }
                     };
@@ -157,7 +157,7 @@ pub fn parse(tokens : Vec<String>) {
                     let rhs_parsed = match rhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with RHS, I'm sure you did");
+                            rhs_error();
                             exit(1)
                         }
                     };
@@ -165,7 +165,7 @@ pub fn parse(tokens : Vec<String>) {
                     let lhs_parsed = match lhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with LHS, I'm sure you did");
+                            lhs_error();
                             exit(1)
                         }
                     };
@@ -178,7 +178,7 @@ pub fn parse(tokens : Vec<String>) {
                     let rhs_parsed = match rhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with RHS, I'm sure you did");
+                            rhs_error();
                             exit(1)
                         }
                     };
@@ -186,7 +186,7 @@ pub fn parse(tokens : Vec<String>) {
                     let lhs_parsed = match lhs {
                         Some(r) => r,
                         None => {
-                            println!("You did something wrong with LHS, I'm sure you did");
+                            lhs_error();
                             exit(1)
                         }
                     };
@@ -196,7 +196,7 @@ pub fn parse(tokens : Vec<String>) {
                 "(" => AST::eval(&AST::InfixOp {op : Op::LPAREN , rhs :  tokens[index + 1].clone() , lhs : tokens[index - 1].clone()}),
                 ")" => AST::eval(&AST::InfixOp {op : Op::RPAREN , rhs :  tokens[index + 1].clone() , lhs : tokens[index - 1].clone()}),
                 "=" => AST::eval(&AST::InfixOp {op : Op::EQUALS , rhs :  tokens[index + 1].clone() , lhs : tokens[index - 1].clone()}),
-                _ => println!("AST Err")
+                _ => ast_error()
             }
         }
         else if is_digit(&token) {
